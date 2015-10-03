@@ -5,9 +5,9 @@
   "content_scripts": [
 	{
 		"matches": [
-			"<all_urls>"
+			"https://my.sa.ucsb.edu/gold/ResultsFindCourses.aspx"
 		],
-		"js": ["content.js"]
+		"js": ["jquery-2.1.4.min.js","content.js"]
 	}
   ]
 }
