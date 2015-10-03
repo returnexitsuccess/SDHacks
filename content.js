@@ -27,6 +27,17 @@ function __doPostBack(eventTarget, eventArgument) {
     }
 }
 //__doPostBack('ctl00$pageContent$CourseList$ctl00$CourseDetailLink','');
+
+tables = $("table[class='datatable']")
+for (i = 0; i < tables.length; i++)
+	{
+	var $table = tables.eq(i).find("table.tableheader").eq(0);
+	var rows = $table.children().children().slice(1);
+	var $newTable = $table.parent().append('<table class="tableheader" width="100%" cellpadding="0" cellspacing="0" border="0" align="left"><tbody></tbody></table>');
+	$newTable.children().append(rows);
+	$table.children().children().slice(1).remove();
+	}
+
 var links = $("a[href*='CourseDetailLink']");
 var e = []
 for (i = 0; i < links.length; i++)
