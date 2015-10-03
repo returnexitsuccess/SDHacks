@@ -9,5 +9,6 @@
 		],
 		"js": ["jquery-2.1.4.min.js","jquery.form.min.js","content.js"]
 	}
-  ]
+  ],
+  "web_accessible_resources": ["styles.css","Styles2.css"]
 }
