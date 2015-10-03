@@ -15,17 +15,21 @@ function __doPostBack(eventTarget, eventArgument) {
 		//console.log($("#MainForm").serialize());
 		i = parseInt(eventTarget.split('$')[3].substring(3));
 		console.log(i);
-		console.log($("table[class='tableheader_" + i.toString() + "']"));
-		$.ajax({
-			type: "POST",
-			url: "ResultsFindCourses.aspx",
-			data: $("#MainForm").serialize(),
-			success: function(data)
-			{
-				content = $(data).find("#content").find("div[id='pageContent_DescPageView']").find("table").eq(0).prop("outerHTML");
-				$(content).insertBefore('.tableheader_' + i.toString());
-			}
-		});
+		if ($("table[class='tableheader_" + i.toString() + "']").parent().find("#content" + i.toString()).length > 0)
+		{
+			$("table[class='tableheader_" + i.toString() + "']").parent().find("#content" + i.toString()).remove();
+		} else {
+			$.ajax({
+				type: "POST",
+				url: "ResultsFindCourses.aspx",
+				data: $("#MainForm").serialize(),
+				success: function(data)
+				{
+					content = $(data).find("#content").find("div[id='pageContent_DescPageView']").find("table").eq(0).prop("id", "content" + i.toString()).prop("outerHTML");
+					$(content).insertBefore('.tableheader_' + i.toString());
+				}
+			});
+		}
     }
 }
 //__doPostBack('ctl00$pageContent$CourseList$ctl00$CourseDetailLink','');
