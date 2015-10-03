@@ -7,7 +7,7 @@
 		"matches": [
 			"https://my.sa.ucsb.edu/gold/ResultsFindCourses.aspx"
 		],
-		"js": ["jquery-2.1.4.min.js","content.js"]
+		"js": ["jquery-2.1.4.min.js","jquery.form.min.js","content.js"]
 	}
   ]
 }
