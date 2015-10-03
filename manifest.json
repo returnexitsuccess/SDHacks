@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "Gold Improved",
+  "name": "Gold 2.0",
   "version": "0.1",
   "content_scripts": [
 	{
@@ -10,5 +10,8 @@
 		"js": ["jquery-2.1.4.min.js","jquery.form.min.js","content.js"]
 	}
   ],
+  "browser_action": {
+		"default_icon": "icon.png"
+  },
   "web_accessible_resources": ["styles.css","Styles2.css"]
 }

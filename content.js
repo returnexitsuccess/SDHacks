@@ -60,6 +60,15 @@ for (i = 0; i < tables.length; i++)
 	var $newTable = $table.parent().append('<table class="tableheader_'+i.toString()+'" width="100%" cellpadding="0" cellspacing="0" border="0" align="left"><tbody></tbody></table>');
 	$newTable.children().append(rows);
 	$table.children().children().slice(1).remove();
+	
+	link = $table.find(".fl").eq(1).remove().children();
+	$table.children().append('<tr><td id="pageContent_CourseList_PermNbr_'+i.toString()+'" colspan="9" width="585"><table width="585" cellpadding="0" cellspacing="0" border="0" align="left"><tbody><tr><td colspan="2" valign="top" width="560"><div class="fl" style="font-size:11px;">' +
+			" "+
+			link.text("General").prop("outerHTML")+"   "+
+			link.text("Pre-requisites").prop("outerHTML")+"   "+
+			link.text("Restrictions").prop("outerHTML")+"   "+
+			link.text("Enrollment History").prop("outerHTML")+"   "+
+			'</div></td></tr></tbody></table></td></tr>');
 	}
 
 var links = $("a[href*='CourseDetailLink']");
