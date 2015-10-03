@@ -20,12 +20,13 @@ function __doPostBack(eventTarget, eventArgument) {
 			success: function(data)
 			{
 				//$("html").html(data);
-				console.log($(data).find("#content")[0]);
+				content = $(data).find("#content").eq(0).prop("outerHTML");
+				$("table[class='tableheader']").find("tr").eq(0).replaceWith($("table[class='tableheader']").find("tr").eq(0).prop('outerHTML').concat("\n<tr><td>",content,"</td></tr>"));
 			}
 		});
     }
 }
-__doPostBack('ctl00$pageContent$CourseList$ctl00$CourseDetailLink','');
+//__doPostBack('ctl00$pageContent$CourseList$ctl00$CourseDetailLink','');
 var links = $("a[href*='CourseDetailLink']");
 var e = []
 for (i = 0; i < links.length; i++)
