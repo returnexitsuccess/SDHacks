@@ -76,6 +76,7 @@ function __doPostBack(eventTarget, eventArgument) {
 			});
 		} else {
 			currentState = "";
+					$("table[class='tableheader_" + i.toString() + "']").parent().find("#content" + i.toString()).remove();
 		}
     }
 }
