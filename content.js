@@ -29,7 +29,7 @@ function __doPostBack(eventTarget, eventArgument) {
 				data: $("#MainForm").serialize(),
 				success: function(data)
 				{
-					content = $(data).find("#content").find("div[id='pageContent_DescPageView']").find("table").eq(0).prop("id", "content" + i.toString()).prop("outerHTML");
+					content = $(data).find("#content").find("div[id='pageContent_DescPageView']").children().eq(0).prop("id", "content" + i.toString()).prop("outerHTML");
 					$("table[class='tableheader_" + i.toString() + "']").parent().find("#content" + i.toString()).remove();
 					$(content).insertBefore('.tableheader_' + i.toString());
 					currentState = button;
@@ -42,7 +42,8 @@ function __doPostBack(eventTarget, eventArgument) {
 				data: $("#MainForm").serialize(),
 				success: function(data)
 				{
-					content = $(data).find("#content").find("div[id='pageContent_PreReqPageView']").find("table").eq(0).prop("id", "content" + i.toString()).prop("outerHTML");
+					content = $(data).find("#content").find("div[id='pageContent_PreReqPageView']").children().eq(0).prop("id", "content" + i.toString()).prop("outerHTML");
+					console.log(content);
 					$("table[class='tableheader_" + i.toString() + "']").parent().find("#content" + i.toString()).remove();
 					$(content).insertBefore('.tableheader_' + i.toString());
 					currentState = button;
@@ -55,7 +56,7 @@ function __doPostBack(eventTarget, eventArgument) {
 				data: $("#MainForm").serialize(),
 				success: function(data)
 				{
-					content = $(data).find("#content").find("div[id='pageContent_RestrictionPageView']").find("table").eq(0).prop("id", "content" + i.toString()).prop("outerHTML");
+					content = $(data).find("#content").find("div[id='pageContent_RestrictionPageView']").children().eq(0).prop("id", "content" + i.toString()).prop("outerHTML");
 					$("table[class='tableheader_" + i.toString() + "']").parent().find("#content" + i.toString()).remove();
 					$(content).insertBefore('.tableheader_' + i.toString());
 					currentState = button;
