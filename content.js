@@ -1,6 +1,6 @@
 // alert('This code does nothing')
 var theForm = document.forms['MainForm'];
-var currentState = "";
+var states = {};
 //console.log(theForm);
 if (!theForm) {
     theForm = document.MainForm;
@@ -16,7 +16,14 @@ function __doPostBack(eventTarget, eventArgument) {
 		//console.log($("#MainForm").serialize());
 		i = parseInt(eventTarget.split('$')[3].substring(3));
 		//console.log(i);
+		if (!(i in states))
+		{
+			states[i] = "";
+			console.log(i);
+		}
 		button = event.target.text;
+		currentState = states[i];
+		console.log(currentState);
 		//if ($("table[class='tableheader_" + i.toString() + "']").parent().find("#content" + i.toString()).length > 0)
 		//{
 		//	$("table[class='tableheader_" + i.toString() + "']").parent().find("#content" + i.toString()).remove();
@@ -32,7 +39,7 @@ function __doPostBack(eventTarget, eventArgument) {
 					content = $(data).find("#content").find("div[id='pageContent_DescPageView']").children().eq(0).prop("id", "content" + i.toString()).prop("outerHTML");
 					$("table[class='tableheader_" + i.toString() + "']").parent().find("#content" + i.toString()).remove();
 					$(content).insertBefore('.tableheader_' + i.toString());
-					currentState = button;
+					states[i] = button;
 				}
 			});
 		} else if (button === "PreRequisites" && button != currentState) {
@@ -43,10 +50,9 @@ function __doPostBack(eventTarget, eventArgument) {
 				success: function(data)
 				{
 					content = $(data).find("#content").find("div[id='pageContent_PreReqPageView']").children().eq(0).prop("id", "content" + i.toString()).prop("outerHTML");
-					console.log(content);
 					$("table[class='tableheader_" + i.toString() + "']").parent().find("#content" + i.toString()).remove();
 					$(content).insertBefore('.tableheader_' + i.toString());
-					currentState = button;
+					states[i] = button;
 				}
 			});
 		} else if (button === "Restrictions" && button != currentState) {
@@ -59,7 +65,7 @@ function __doPostBack(eventTarget, eventArgument) {
 					content = $(data).find("#content").find("div[id='pageContent_RestrictionPageView']").children().eq(0).prop("id", "content" + i.toString()).prop("outerHTML");
 					$("table[class='tableheader_" + i.toString() + "']").parent().find("#content" + i.toString()).remove();
 					$(content).insertBefore('.tableheader_' + i.toString());
-					currentState = button;
+					states[i] = button;
 				}
 			});
 		} else if (button === "Enrollment History" && button != currentState) {
@@ -69,15 +75,15 @@ function __doPostBack(eventTarget, eventArgument) {
 				data: $("#MainForm").serialize(),
 				success: function(data)
 				{
+					states[i] = button;
 					content = $(data).find("#content").find("div[id='pageContent_HistPageView']").children().eq(0).prop("id", "content" + i.toString()).prop("outerHTML");
 					$("table[class='tableheader_" + i.toString() + "']").parent().find("#content" + i.toString()).remove();
 					$(content).insertBefore('.tableheader_' + i.toString());
-					currentState = button;
 				}
 			});
 		} else {
-			currentState = "";
-					$("table[class='tableheader_" + i.toString() + "']").parent().find("#content" + i.toString()).remove();
+			states[i] = "";
+			$("table[class='tableheader_" + i.toString() + "']").parent().find("#content" + i.toString()).remove();
 		}
     }
 }
