@@ -19,11 +19,11 @@ function __doPostBack(eventTarget, eventArgument) {
 		if (!(i in states))
 		{
 			states[i] = "";
-			console.log(i);
+			//console.log(i);
 		}
 		button = event.target.text;
 		currentState = states[i];
-		console.log(currentState);
+		//console.log(currentState);
 		//if ($("table[class='tableheader_" + i.toString() + "']").parent().find("#content" + i.toString()).length > 0)
 		//{
 		//	$("table[class='tableheader_" + i.toString() + "']").parent().find("#content" + i.toString()).remove();
@@ -72,13 +72,22 @@ function __doPostBack(eventTarget, eventArgument) {
 			$.ajax({
 				type: "POST",
 				url: "ResultsFindCourses.aspx",
+				async: true,
 				data: $("#MainForm").serialize(),
 				success: function(data)
 				{
 					states[i] = button;
-					content = $(data).find("#content").find("div[id='pageContent_HistPageView']").children().eq(0).prop("id", "content" + i.toString()).prop("outerHTML");
+					content = $(data).find("#content").find("div[id='pageContent_HistPageView']").children().eq(0).prop("id", "content" + i.toString());
+					content.find("script").remove()
+					new_img = content.find("img[title='Collapse']").prop("id", "collapse" + i.toString()).prop("outerHTML");
+					content = content.find("img[title='Collapse']").parent().html("<a href='javascript:void(0)' id='collapse" + i.toString() + "'>" + new_img + "</a>").children().eq(0).parent().parent().parent().parent().parent().parent().prop("outerHTML");
 					$("table[class='tableheader_" + i.toString() + "']").parent().find("#content" + i.toString()).remove();
 					$(content).insertBefore('.tableheader_' + i.toString());
+					
+					$("a[id='collapse" + i.toString() + "']").click( function() {
+						ehCollapse(event.target.id);
+						return false;
+					});
 				}
 			});
 		} else {
@@ -88,21 +97,28 @@ function __doPostBack(eventTarget, eventArgument) {
     }
 }
 
-function timeToggle(j)
-{
-	rows = $(".tableheader_"+j.toString()).children().slice(1)
-	for (k = 0; k < rows.length; k++)
-	{
-		if (rows.eq(k).prop('display') === "hidden")
-		{
-			rows.eq(k).prop('display', "initial")
-		} else {
-			rows.eq(k).prop('display', "hidden")
-		}
-	}
-	return false;
+function ehCollapse(id) {
+	j = parseInt(id.substring(8));
+	console.log(j);
+	$("a[id='" + id + "']").parent().parent().parent().children().eq(1).attr("style", "display: none");
+	$("a[id='" + id + "']").parent().html("<a href='javascript:void(0)' id='expand" + j.toString() + "'><img title='Expand' src='/gold/RadControls/Grid/Skins/Windows/SinglePlus.gif' alt='Expand' style='border-width:0px;' id='expand" + j.toString() + "'></a>");
+	$("a[id='expand" + j.toString() + "']").click( function() {
+		ehExpand(event.target.id);
+		return false;
+	});
 }
-//__doPostBack('ctl00$pageContent$CourseList$ctl00$CourseDetailLink','');
+
+function ehExpand(id) {
+	j = parseInt(id.substring(6));
+	console.log(j);
+	$("a[id='" + id + "']").parent().parent().parent().children().eq(1).attr("style", "");
+	$("a[id='" + id + "']").parent().html("<a href='javascript:void(0)' id='collapse" + j.toString() + "'><img title='Collapse' src='/gold/RadControls/Grid/Skins/Windows/SingleMinus.gif' alt='Collapse' style='border-width:0px;' id='collapse" + j.toString() + "'></a>");
+	$("a[id='collapse" + j.toString() + "']").click( function() {
+		ehCollapse(event.target.id);
+		return false;
+	});
+}
+
 
 var style = document.createElement('link');
 style.rel = 'stylesheet';
@@ -115,12 +131,13 @@ style.rel = 'stylesheet';
 style.type = 'text/css';
 style.href = '/gold/RadControls/TabStrip/Skins/ClassicBlue/styles.css';
 (document.head||document.documentElement).appendChild(style);
-
+/*
 var style = document.createElement('link');
 style.rel = 'stylesheet';
 style.type = 'text/css';
 style.href = '/gold/WebResource.axd?d=KtKsb8McaZwc-0CAhFuvCAgOE12hpNj-C0BLNURZNB0G3lTk0VKCeVx8woMqKj5B-TMJHsPsfgVyjE2KYFw7m6j_ns4PYJstIatMLnteNrWliW_etik_YFNTWheMKHGnQdRzJX4BVwBQ5q76cnhbK_6x_hoWJwyIM8U6mya9XRa7xeaofIsSvcw2Bss1Lzdx0&amp;t=634079871670000000';
 (document.head||document.documentElement).appendChild(style);
+*/
 
 tables = $("table[class='datatable']")
 for (i = 0; i < tables.length; i++)
@@ -132,10 +149,10 @@ for (i = 0; i < tables.length; i++)
 			"&nbsp<a id='timeToggle_"+i.toString()+"' href='javascript:void(0);'>Collapse Times</a>"+"&nbsp&nbsp&nbsp"+
 			'</div></td></tr></tbody></table></td></tr>').click( function() {
 				j = parseInt(event.target.id.substring(11));
-				console.log(j);
-				console.log($("table[class='tableheader_"+j.toString()+"']").children());
+				//console.log(j);
+				//console.log($("table[class='tableheader_"+j.toString()+"']").children());
 				rows = $("table[class='tableheader_"+j.toString()+"']").children().children().slice(1)
-				console.log(rows);
+				//console.log(rows);
 				if (rows.attr('style') === "display: none")
 				{
 					rows.eq(0).attr('style', "display: initial");
