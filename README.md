@@ -1,3 +1,5 @@
+#Gold 2.0
+
 ##Inspiration
 GOLD is the online course catalog and registration website for UCSB students and... it kinda sucks. Information is segmented between different pages which makes it hard to plan schedules for the present and the future. We wanted to change that.
 
